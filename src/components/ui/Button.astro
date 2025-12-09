@@ -1,0 +1,40 @@
+---
+interface Props {
+    href: string;
+    variant?: 'primary' | 'secondary' | 'ghost';
+    download?: boolean;
+    class?: string;
+    ariaLabel?: string;
+    target?: string;
+}
+
+const { 
+    href, 
+    variant = 'primary',
+    download, 
+    class: className, 
+    ariaLabel,
+    target 
+} = Astro.props;
+
+const variants = {
+    primary: "bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:shadow-emerald-500/50 hover:shadow-lg border-transparent",
+    secondary: "bg-slate-900/50 text-slate-200 border-slate-700/50 hover:border-emerald-500/50 hover:text-white hover:bg-slate-800/50 hover:shadow-lg hover:shadow-emerald-500/20",
+    ghost: "bg-transparent text-slate-400 hover:text-emerald-400 border-transparent hover:bg-slate-800/30"
+};
+---
+
+<a
+    href={href}
+    download={download}
+    target={target}
+    class:list={[
+        "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm tracking-wide transition-all duration-300 border",
+        "hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-slate-950",
+        variants[variant],
+        className,
+    ]}
+    aria-label={ariaLabel}
+>
+    <slot />
+</a>

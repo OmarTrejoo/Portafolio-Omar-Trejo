@@ -1,0 +1,79 @@
+---
+interface Props {
+  name: 'calendar' | 'building' | 'location' | 'gallery' | 'close' | 'arrow-left' | 'arrow-right';
+  class?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+}
+
+const { name, class: className, size = 'md' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'w-3.5 h-3.5',
+  md: 'w-4 h-4',
+  lg: 'w-5 h-5',
+  xl: 'w-6 h-6'
+};
+
+type IconData = {
+  viewBox: string;
+  fill?: string;
+  stroke?: string;
+  path: string;
+};
+
+const icons: Record<string, IconData> = {
+  calendar: {
+    viewBox: '0 0 20 20',
+    fill: 'currentColor',
+    path: '<path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>'
+  },
+  building: {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    path: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>'
+  },
+  location: {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    path: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>'
+  },
+  gallery: {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    path: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>'
+  },
+  close: {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    path: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>'
+  },
+  'arrow-left': {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    path: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>'
+  },
+  'arrow-right': {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    path: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>'
+  }
+};
+
+const icon = icons[name];
+---
+
+<svg 
+  class:list={[sizeClasses[size], className]}
+  fill={icon.fill}
+  stroke={icon.stroke}
+  viewBox={icon.viewBox}
+  aria-hidden="true"
+>
+  <Fragment set:html={icon.path} />
+</svg>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  align?: "left" | "center";
+  class?: string;
+}
+
+const { title, align = "center", class: className } = Astro.props;
+---
+
+<div class:list={[
+  "space-y-4 mb-16",
+  align === "center" ? "text-center" : "text-left",
+  className
+]}>
+  <h2 class="text-3xl md:text-4xl font-bold">
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-400">
+      {title}
+    </span>
+  </h2>
+  
+  <div class:list={[
+    "h-1 w-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full",
+    align === "center" ? "mx-auto" : ""
+  ]}></div>
+</div>

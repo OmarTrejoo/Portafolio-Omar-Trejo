@@ -1,0 +1,88 @@
+import type { Project } from "../types";
+
+export const projects: Project[] = [
+	{
+		name: 'Trazo: Control de Gastos',
+		description: 'Gestión financiera personal con análisis inteligente y gráficos interactivos',
+		fullDescription: 'Control total de tus finanzas. Registra transacciones rápidamente, administra múltiples cuentas y visualiza tus hábitos de consumo a través de dashboards intuitivos.',
+		coverImage: '/referencias img/trazo/TrazoGoogle.png',
+		images: [
+			'/referencias img/trazo/1.png',
+			'/referencias img/trazo/2.png',
+			'/referencias img/trazo/3.png',
+			'/referencias img/trazo/4.png',
+			'/referencias img/trazo/5.png',
+			'/referencias img/trazo/6.png',
+			'/referencias img/trazo/7.png',
+		],
+		status: 'presente',
+		technologies: ['Flutter', 'Dart', 'Firebase', 'SQLite'],
+		highlights: [
+			'Categorización automática de transacciones',
+			'Gestión de múltiples cuentas y transferencias',
+			'Dashboard con gráficos interactivos',
+		],
+		githubUrl: 'https://github.com/tuusuario/billeteo',
+	},
+	{
+		name: 'BubbleRush',
+		description: 'Arcade de reflejos: explota burbujas, activa power-ups y sube de rango',
+		fullDescription: 'Un arcade rápido y adictivo. Tienes que explotar las burbujas correctas antes de que se acabe el tiempo, usando power-ups divertidos como congelar el tiempo o explotarlo todo. Incluye sistema de ligas y muchos temas para desbloquear.',
+		coverImage: '/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (1)-portrait.png',
+		images: [
+			'/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (1)-portrait.png',
+			'/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (2)-portrait.png',
+			'/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (3)-portrait.png',
+			'/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (4)-portrait.png',
+		],
+		status: 'presente',
+		technologies: ['Flutter', 'Dart'],
+		highlights: [
+			'4 Power-ups estratégicos y dificultad progresiva',
+			'Sistema de ligas por trofeos (Bronce a Diamante)',
+			'Economía de juego y temas desbloqueables',
+			'Motor físico con Flame y efectos visuales',
+		],
+		githubUrl: '',
+	},
+	{
+		name: 'Despertador Extremo',
+		description: 'Alarma inteligente que garantiza despertarte, sin importar el estado del teléfono',
+		fullDescription: 'Una alarma en la que sí puedes confiar. Maneja inteligentemente las notificaciones para sonar fuerte incluso si tu teléfono está bloqueado o en silencio. Permite personalizar tonos, vibración y temas visuales para despertar a tu gusto.',
+		coverImage: '/referencias img/despertador/WhatsApp Image 2025-12-07 at 8.35.06 PM (1)-portrait.png',
+		images: [
+			'/referencias img/despertador/WhatsApp Image 2025-12-07 at 8.35.06 PM (1)-portrait.png',
+			'/referencias img/despertador/WhatsApp Image 2025-12-07 at 8.35.06 PM-portrait.png',
+			'/referencias img/despertador/WhatsApp Image 2025-12-07 at 8.35.07 PM-portrait.png',
+		],
+		status: 'presente',
+		technologies: ['Flutter', 'Dart'],
+		highlights: [
+			'Funcionamiento garantizado en background/bloqueo',
+			'Arquitectura MVVM escalable con Provider',
+			'Persistencia robusta y AlarmManager API',
+			'Interfaz personalizable con temas dinámicos',
+		],
+		githubUrl: '',
+	},
+	{
+		name: 'Data Saints',
+		description: 'Página web para ofrecer servicios de desarrollo de software (En construcción)',
+		fullDescription: 'Landing page corporativa para presentar servicios de desarrollo. Es un sitio sencillo y funcional construido con React y Tailwind para mostrar información de contacto y catálogo de servicios. Actualmente se encuentra en etapa de desarrollo.',
+		coverImage: '/referencias img/data/1-data-front.png',
+		images: [
+			'/referencias img/data/1-data-front.png',
+			'/referencias img/data/2-data-front.png',
+			'/referencias img/data/3-data-front.png',
+		],
+		status: 'en desarrollo',
+		technologies: ['React', 'Vite', 'Tailwind', 'JavaScript'],
+		highlights: [
+			'Página Web corporativa',
+			'Desarrollado con React y Vite',
+			'Estilos responsivos con Tailwind CSS',
+			'Proyecto actualmente en construcción',
+		],
+		githubUrl: '',
+	},
+];

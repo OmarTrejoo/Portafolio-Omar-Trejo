@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import About from "../../components/About.astro";
+import Experience from "../../components/Experience.astro";
+import Projects from "../../components/Projects.astro";
+import Skills from "../../components/Skills.astro";
+import Education from "../../components/Education.astro";
+import Contact from "../../components/Contact.astro";
+
+
+import { personalInfo } from "../../data/personal.en";
+import { experience } from "../../data/experience.en";
+import { projects } from "../../data/projects.en";
+import { technicalSkills, softSkills } from "../../data/skills.en";
+import { education, certifications, languages } from "../../data/education.en";
+import { navItems } from "../../data/navigation.en";
+import { siteConfig } from "../../data/site.en";
+
+const lang = "en";
+---
+
+<Layout 
+  title={siteConfig.title} 
+  description={siteConfig.description}
+>
+	<Header navItems={navItems} lang={lang} />
+	<Hero personalInfo={personalInfo} lang={lang} />
+	<About personalInfo={personalInfo} lang={lang} />
+	<Experience experience={experience} lang={lang} />
+	<Projects projects={projects} lang={lang} />
+	<Skills technicalSkills={technicalSkills} softSkills={softSkills || []} lang={lang} />
+	<Education 
+    education={education} 
+    certifications={certifications} 
+    languages={languages} 
+    lang={lang} 
+  />
+	<Contact personalInfo={personalInfo} />
+</Layout>

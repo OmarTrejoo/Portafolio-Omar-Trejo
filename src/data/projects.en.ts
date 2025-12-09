@@ -1,0 +1,88 @@
+import type { Project } from "../types";
+
+export const projects: Project[] = [
+    {
+        name: 'Trazo: Expenses Control',
+        description: 'Personal financial management with intelligent analysis and interactive charts',
+        fullDescription: 'Total control of your finances. Record transactions quickly, manage multiple accounts, and visualize your spending habits through intuitive dashboards.',
+        coverImage: '/referencias img/trazo/TrazoGoogle.png',
+        images: [
+            '/referencias img/trazo/1.png',
+            '/referencias img/trazo/2.png',
+            '/referencias img/trazo/3.png',
+            '/referencias img/trazo/4.png',
+            '/referencias img/trazo/5.png',
+            '/referencias img/trazo/6.png',
+            '/referencias img/trazo/7.png',
+        ],
+        status: 'completed',
+        technologies: ['Flutter', 'Dart', 'Firebase', 'SQLite'],
+        highlights: [
+            'Automatic transaction categorization',
+            'Support for multiple accounts and transfers',
+            'Dashboard with interactive charts',
+        ],
+        githubUrl: 'https://github.com/tuusuario/billeteo',
+    },
+    {
+        name: 'BubbleRush',
+        description: 'Reflex arcade: pop bubbles, activate power-ups, and rank up',
+        fullDescription: 'A fast and addictive arcade game. You have to pop the right bubbles before time runs out, using fun power-ups like freezing time or blowing everything up. Includes a league system and many unlockable themes.',
+        coverImage: '/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (1)-portrait.png',
+        images: [
+            '/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (1)-portrait.png',
+            '/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (2)-portrait.png',
+            '/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (3)-portrait.png',
+            '/referencias img/bubblerush/WhatsApp Image 2025-12-07 at 8.35.07 PM (4)-portrait.png',
+        ],
+        status: 'completed',
+        technologies: ['Flutter', 'Dart'],
+        highlights: [
+            '4 strategic Power-ups and progressive difficulty',
+            'League system for trophies (Bronze to Diamond)',
+            'In-game economy and unlockable themes',
+            'Physics engine with Flame and visual effects',
+        ],
+        githubUrl: '',
+    },
+    {
+        name: 'Extreme Alarm Clock',
+        description: 'Smart alarm that guarantees to wake you up, regardless of phone state',
+        fullDescription: 'An alarm you can actually trust. It intelligently handles notifications to ring loud even if your phone is locked or on silent. Allows customizing tones, vibration, and visual themes to wake up your way.',
+        coverImage: '/referencias img/despertador/WhatsApp Image 2025-12-07 at 8.35.06 PM (1)-portrait.png',
+        images: [
+            '/referencias img/despertador/WhatsApp Image 2025-12-07 at 8.35.06 PM (1)-portrait.png',
+            '/referencias img/despertador/WhatsApp Image 2025-12-07 at 8.35.06 PM-portrait.png',
+            '/referencias img/despertador/WhatsApp Image 2025-12-07 at 8.35.07 PM-portrait.png',
+        ],
+        status: 'completed',
+        technologies: ['Flutter', 'Dart'],
+        highlights: [
+            'Guaranteed background/lock-screen operation',
+            'Scalable MVVM architecture with Provider',
+            'Robust persistence and AlarmManager API',
+            'Customizable interface with dynamic themes',
+        ],
+        githubUrl: '',
+    },
+    {
+        name: 'Data Saints',
+        description: 'Software development services website (Under Construction)',
+        fullDescription: 'Corporate landing page to present development services. It is a simple and functional site built with React and Tailwind to show contact information and service catalog. Currently in development stage.',
+        coverImage: '/referencias img/data/1-data-front.png',
+        images: [
+            '/referencias img/data/1-data-front.png',
+            '/referencias img/data/2-data-front.png',
+            '/referencias img/data/3-data-front.png',
+        ],
+        status: 'in progress',
+        technologies: ['React', 'Vite', 'Tailwind', 'JavaScript'],
+        highlights: [
+            'Corporate Web Page',
+            'Developed with React and Vite',
+            'Responsive styles with Tailwind CSS',
+            'Project currently under construction',
+        ],
+        githubUrl: '',
+    },
+];

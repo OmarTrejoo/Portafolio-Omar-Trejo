@@ -1,0 +1,175 @@
+---
+import type { NavItem } from "../types";
+import LanguagePicker from "./ui/LanguagePicker.astro";
+
+interface Props {
+  navItems: NavItem[];
+  lang: 'es' | 'en';
+}
+
+const { navItems, lang } = Astro.props;
+---
+
+<header
+	id="main-header"
+	class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+	data-header
+>
+	<nav
+		class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between"
+	>
+
+		<ul class="hidden md:flex items-center gap-1 text-sm font-medium">
+			{
+				navItems.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							data-nav-link
+							class="group relative px-4 py-2 text-slate-400 transition-colors duration-200 hover:text-white rounded-lg"
+						>
+							<span class="relative z-10">{item.label}</span>
+
+							<div class="absolute inset-0 bg-slate-800/0 group-hover:bg-slate-800/50 rounded-lg transition-all duration-200"></div>
+
+							<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-300 group-[.active]:w-3/4 group-[.active]:opacity-100 group-hover:w-3/4 opacity-0 group-hover:opacity-100"></div>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+
+		<button
+			id="mobile-menu-toggle"
+			class="md:hidden relative p-2.5 rounded-xl bg-slate-800/50 hover:bg-slate-800 backdrop-blur-sm text-slate-200 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-slate-950 order-first"
+			aria-label="Toggle menu"
+			data-menu-toggle
+		>
+			<div class="w-6 h-5 flex flex-col justify-between" data-hamburger>
+				<span class="w-full h-0.5 bg-current transform transition-all duration-300 origin-left" data-bar-1></span>
+				<span class="w-full h-0.5 bg-current transition-all duration-300" data-bar-2></span>
+				<span class="w-full h-0.5 bg-current transform transition-all duration-300 origin-left" data-bar-3></span>
+			</div>
+		</button>
+
+
+		<LanguagePicker currentLang={lang} />
+	</nav>
+
+
+	<div
+		id="mobile-menu"
+		class="md:hidden overflow-hidden transition-all duration-300 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/50"
+		style="max-height: 0;"
+		data-mobile-menu
+	>
+		<ul class="container mx-auto px-6 py-6 flex flex-col gap-2">
+			{
+				navItems.map((item, index) => (
+					<li 
+						class="opacity-0 translate-y-4 transition-all duration-300"
+						style={`transition-delay: ${index * 50}ms`}
+						data-mobile-item
+					>
+						<a
+							href={item.href}
+							class="group flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-white rounded-xl hover:bg-slate-800/50 transition-all duration-200"
+						>
+							<span class="w-1.5 h-1.5 rounded-full bg-emerald-400/50 group-hover:bg-emerald-400 group-hover:scale-150 transition-all duration-200"></span>
+							<span class="font-medium">{item.label}</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</header>
+
+<script>
+	function initHeader() {
+		const header = document.querySelector('[data-header]') as HTMLElement;
+		const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+		const mobileMenu = document.querySelector('[data-mobile-menu]') as HTMLElement;
+		const mobileItems = document.querySelectorAll('[data-mobile-item]');
+		const bar1 = document.querySelector('[data-bar-1]') as HTMLElement;
+		const bar2 = document.querySelector('[data-bar-2]') as HTMLElement;
+		const bar3 = document.querySelector('[data-bar-3]') as HTMLElement;
+		let isMenuOpen = false;
+
+		window.addEventListener('scroll', () => {
+			const currentScroll = window.pageYOffset;
+			
+			if (currentScroll > 50) {
+				header?.classList.add('bg-slate-950/80', 'backdrop-blur-xl', 'border-b', 'border-slate-800/50', 'shadow-lg', 'shadow-slate-950/50');
+			} else {
+				header?.classList.remove('bg-slate-950/80', 'backdrop-blur-xl', 'border-b', 'border-slate-800/50', 'shadow-lg', 'shadow-slate-950/50');
+			}
+		});
+
+		const sections = document.querySelectorAll('section[id]');
+		const navLinks = document.querySelectorAll('[data-nav-link]');
+
+		window.addEventListener('scroll', () => {
+			let current = '';
+			sections.forEach(section => {
+				const sectionTop = (section as HTMLElement).offsetTop;
+				if (window.pageYOffset >= sectionTop - 200) {
+					current = section.getAttribute('id') || '';
+				}
+			});
+
+			navLinks.forEach(link => {
+				link.classList.remove('active', 'text-white');
+				if (link.getAttribute('href') === `#${current}`) {
+					link.classList.add('active', 'text-white');
+				}
+			});
+		});
+
+		mobileMenuToggle?.addEventListener('click', () => {
+			isMenuOpen = !isMenuOpen;
+			
+			if (isMenuOpen) {
+				
+				mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+				
+				setTimeout(() => {
+					mobileItems.forEach(item => {
+						item.classList.remove('opacity-0', 'translate-y-4');
+						item.classList.add('opacity-100', 'translate-y-0');
+					});
+				}, 50);
+
+				bar1?.classList.add('rotate-45', 'translate-y-0.5');
+				bar2?.classList.add('opacity-0');
+				bar3?.classList.add('-rotate-45', '-translate-y-0.5');
+			} else {
+				mobileItems.forEach(item => {
+					item.classList.add('opacity-0', 'translate-y-4');
+					item.classList.remove('opacity-100', 'translate-y-0');
+				});
+
+				setTimeout(() => {
+					mobileMenu.style.maxHeight = '0';
+				}, 200);
+
+				bar1?.classList.remove('rotate-45', 'translate-y-0.5');
+				bar2?.classList.remove('opacity-0');
+				bar3?.classList.remove('-rotate-45', '-translate-y-0.5');
+			}
+		});
+
+		const mobileLinks = mobileMenu?.querySelectorAll('a');
+		mobileLinks?.forEach((link) => {
+			link.addEventListener('click', () => {
+				if (isMenuOpen) {
+					mobileMenuToggle?.click();
+				}
+			});
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', initHeader);
+	document.addEventListener('astro:page-load', initHeader);
+</script>

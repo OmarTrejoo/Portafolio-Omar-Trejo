@@ -1,0 +1,429 @@
+---
+import type { Project } from "../types";
+import BackgroundEffects from "./ui/BackgroundEffects.astro";
+import SectionBackground from "./ui/SectionBackground.astro";
+import SectionTitle from "./ui/SectionTitle.astro";
+import Badge from "./ui/Badge.astro";
+
+interface Props {
+  projects: Project[];
+  lang: 'es' | 'en';
+}
+
+const { projects, lang } = Astro.props;
+
+const labels = {
+  title: lang === 'es' ? 'Mis Proyectos' : 'My Projects',
+  viewGallery: lang === 'es' ? 'Ver Galería' : 'View Gallery',
+  viewProject: lang === 'es' ? 'Ver Proyecto' : 'View Project',
+  construction: lang === 'es' ? 'En Construcción' : 'Under Construction',
+  status: {
+    completed: lang === 'es' ? 'Completado' : 'Completed',
+    inProgress: lang === 'es' ? 'En Desarrollo' : 'In Progress',
+    present: lang === 'es' ? 'Presente' : 'Present'
+  }
+};
+
+const modalLabels = {
+  highlights: lang === 'es' ? 'Destacados' : 'Highlights',
+  techStack: lang === 'es' ? 'Stack Tecnológico' : 'Tech Stack',
+  viewCode: lang === 'es' ? 'Ver Código' : 'View Code',
+  viewDemo: lang === 'es' ? 'Ver Demo' : 'View Demo',
+  close: lang === 'es' ? 'Cerrar' : 'Close',
+  prev: lang === 'es' ? 'Anterior' : 'Previous',
+  next: lang === 'es' ? 'Siguiente' : 'Next',
+  image: lang === 'es' ? 'Imagen' : 'Image'
+};
+
+
+const techIcons: Record<string, string> = {
+	'Flutter': '/referencias img/tecnologías/flutter.png',
+	'Dart': '/referencias img/tecnologías/dart-192.svg',
+	'Firebase': '/referencias img/tecnologías/google-cloud.png',
+	'SQLite': '/referencias img/tecnologías/Sqlite.png',
+	'React': '/referencias img/tecnologías/react.svg',
+	'Node.js': '/referencias img/tecnologías/node.svg',
+	'JavaScript': '/referencias img/tecnologías/js.svg',
+	'Python': '/referencias img/tecnologías/python.svg',
+	'TensorFlow': '/referencias img/tecnologías/tenserflow.png',
+	'TensorFlow Lite': '/referencias img/tecnologías/tenserflow.png',
+	'Tailwind': '/referencias img/tecnologías/tailwind.svg',
+	'Vite': '/referencias img/tecnologías/vite.png',
+	'Laravel': '/referencias img/tecnologías/Laravel.svg.png',
+	'C#': '/referencias img/tecnologías/c#.png',
+	'Unity': '/referencias img/tecnologías/unity.png',
+	'PHP': '/referencias img/tecnologías/php.png',
+	'Android Studio': '/referencias img/tecnologías/Android_Studio_icon_(2023).svg.png',
+	'YOLO': '/referencias img/tecnologías/yolo.png',
+	'GitHub': '/referencias img/tecnologías/github.png',
+	'HTML': '/referencias img/tecnologías/html.svg',
+	'CSS': '/referencias img/tecnologías/css.png',
+};
+---
+
+<section
+	id="proyectos"
+	class="bg-slate-900 text-slate-100 border-t border-slate-800/50 relative overflow-hidden"
+>
+	<BackgroundEffects />
+	<SectionBackground variant="light" gradientPosition="bottom" />
+
+	<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 relative z-10">
+		<div class="max-w-6xl mx-auto">
+
+			<SectionTitle title={labels.title} align="center" />
+
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{
+					projects.map((project, index) => (
+						<div
+class="bg-slate-900/50 backdrop-blur-sm border border-slate-800/70 rounded-xl overflow-hidden shadow-lg shadow-white/5 hover:shadow-emerald-800/50 transition-all duration-300 group cursor-pointer animate-on-scroll"							data-project-card
+							data-project-index={index}
+							data-animate
+							style={`transition-delay: ${index * 100}ms`}
+						>
+
+							{project.coverImage && (
+								<div class="aspect-video bg-slate-800/50 overflow-hidden relative flex items-center justify-center group">
+
+									<div class="absolute inset-0 overflow-hidden">
+										<img 
+											src={project.coverImage} 
+											alt="" 
+											class="w-full h-full object-cover blur-xl opacity-50 scale-110"
+										/>
+									</div>
+									
+
+									<img 
+										src={project.coverImage} 
+										alt={project.name}
+										class="w-full h-full object-contain relative z-10 scale-105 group-hover:scale-110 transition-transform duration-500"
+									/>
+								</div>
+							)}
+
+
+							<div class="p-6">
+								<h3 class="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors mb-3">
+									{project.name}
+								</h3>
+
+								<p class="text-slate-400 text-sm mb-4 line-clamp-2">
+									{project.description}
+								</p>
+
+								<div class="flex flex-wrap gap-2">
+									{project.technologies.slice(0, 3).map((tech) => (
+                    <Badge label={tech} icon={techIcons[tech]} />
+									))}
+									{project.technologies.length > 3 && (
+                    <div class="inline-flex items-center px-2.5 py-1 bg-slate-800/50 border border-slate-700/50 rounded-full text-xs text-slate-400">
+											+{project.technologies.length - 3}
+										</div>
+									)}
+								</div>
+
+								</div>
+							</div>
+						
+					))
+				}
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+<div 
+	id="project-modal" 
+	class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+	data-modal
+>
+	<div data-modal-container class="bg-slate-900 border border-slate-800/50 rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto relative opacity-0 scale-95 transition-all duration-300 ease-out transform">
+
+		<button 
+			class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center bg-slate-800/50 hover:bg-slate-800 rounded-full transition-colors"
+			data-close-modal
+			aria-label={modalLabels.close}
+		>
+			<svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+			</svg>
+		</button>
+
+		<div data-modal-content class="p-8">
+
+		</div>
+	</div>
+
+</div>
+
+<script>
+
+
+	function initProjects() {
+		const cards = document.querySelectorAll('[data-project-card]');
+		const modal = document.querySelector('[data-modal]');
+		const modalContent = document.querySelector('[data-modal-content]');
+		const closeBtn = document.querySelector('[data-close-modal]');
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+					}
+				});
+			},
+			{
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			}
+		);
+
+		document.querySelectorAll('[data-animate]').forEach((el) => {
+			observer.observe(el);
+		});
+
+
+		let projects = [];
+		let techIcons: Record<string, string> = {};
+    let labels: any = {};
+		
+		try {
+			const projectsEl = document.getElementById('projects-data');
+			const techIconsEl = document.getElementById('tech-icons-data');
+      const labelsEl = document.getElementById('modal-labels-data');
+			
+			if (projectsEl && projectsEl.textContent) {
+				projects = JSON.parse(projectsEl.textContent);
+			}
+			if (techIconsEl && techIconsEl.textContent) {
+				techIcons = JSON.parse(techIconsEl.textContent);
+			}
+      if (labelsEl && labelsEl.textContent) {
+        labels = JSON.parse(labelsEl.textContent);
+      }
+		} catch (e) {
+			console.error('Error parsing project data:', e);
+		}
+
+		cards.forEach((card) => {
+			card.addEventListener('click', () => {
+				const index = parseInt(card.getAttribute('data-project-index') || '0');
+				openModal(projects[index]);
+			});
+		});
+
+		closeBtn?.addEventListener('click', closeModal);
+		modal?.addEventListener('click', (e) => {
+			if (e.target === modal) closeModal();
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') closeModal();
+		});
+
+		function openModal(project: any) {
+			if (!modal || !modalContent) return;
+
+			const content = `
+				<div class="grid md:grid-cols-2 gap-8">
+					${project.images && project.images.length > 0 ? `
+						<div class="relative group">
+							<div class="bg-slate-950/50 rounded-2xl overflow-hidden h-[500px] flex items-center justify-center p-4 border border-slate-800/50 shadow-inner" data-carousel>
+								<img src="${project.images[0]}" alt="" class="w-full h-full object-contain max-h-full transition-transform duration-500 group-hover:scale-[1.02]" data-carousel-image>
+							</div>
+							${project.images.length > 1 ? `
+								<button class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-950/50 hover:bg-emerald-500/20 backdrop-blur-md border border-slate-700/50 hover:border-emerald-500/50 rounded-full flex items-center justify-center transition-all duration-300 group/btn" data-prev aria-label="${labels.prev || 'Previous'}">
+									<svg class="w-6 h-6 text-slate-300 group-hover/btn:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+								</button>
+								<button class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-950/50 hover:bg-emerald-500/20 backdrop-blur-md border border-slate-700/50 hover:border-emerald-500/50 rounded-full flex items-center justify-center transition-all duration-300 group/btn" data-next aria-label="${labels.next || 'Next'}">
+									<svg class="w-6 h-6 text-slate-300 group-hover/btn:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+								</button>
+								<div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 px-4 py-2 bg-slate-950/30 backdrop-blur-sm rounded-full border border-white/5" data-indicators>
+									${project.images.map((_: any, i: number) => `
+										<button class="w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-emerald-400 w-8 shadow-[0_0_10px_rgba(52,211,153,0.5)]' : 'bg-slate-600 hover:bg-slate-400'}" data-indicator="${i}" aria-label="${labels.image || 'Image'} ${i + 1}"></button>
+									`).join('')}
+								</div>
+							` : ''}
+						</div>
+					` : ''}
+
+					<!-- Contenido a la derecha -->
+					<div class="flex flex-col h-full">
+						<div class="mb-6 inline-block">
+							<h3 class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 mb-2">${project.name}</h3>
+							<div class="h-1 w-full bg-gradient-to-r from-emerald-500 to-emerald-500/0 rounded-full opacity-50"></div>
+						</div>
+
+						<div class="prose prose-invert max-w-none mb-8">
+							<p class="text-slate-300 text-lg leading-relaxed font-light">
+								${project.fullDescription || project.description}
+							</p>
+						</div>
+
+						${project.highlights && project.highlights.length > 0 ? `
+							<div class="mb-8 p-6 bg-slate-800/20 rounded-2xl border border-slate-700/30 hover:border-slate-600/50 transition-colors">
+								<h4 class="text-sm font-semibold text-emerald-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+									${labels.highlights || 'Highlights'}
+								</h4>
+								<div class="space-y-3">
+									${project.highlights.map((h: string) => `
+										<div class="flex items-start gap-3 group/item">
+											<div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-emerald-500/50 group-hover/item:bg-emerald-400 group-hover/item:shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300"></div>
+											<span class="text-base text-slate-300 group-hover/item:text-slate-200 transition-colors">${h}</span>
+										</div>
+									`).join('')}
+								</div>
+							</div>
+						` : ''}
+
+						<!-- Stack -->
+						<div class="mb-8">
+							<p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+								${labels.techStack || 'Tech Stack'}
+							</p>
+							<div class="flex flex-wrap gap-2">
+								${project.technologies.map((tech: string) => `
+									<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-slate-800/50 text-slate-300 border border-slate-700/50 hover:bg-slate-800 hover:text-slate-200 hover:border-slate-600 transition-all duration-300 cursor-default">
+										${techIcons[tech] ? `<img src="${techIcons[tech]}" alt="${tech}" class="w-4 h-4 object-contain opacity-80" />` : ''}
+										<span>${tech}</span>
+									</span>
+								`).join('')}
+							</div>
+						</div>
+
+						<!-- Actions -->
+						<div class="mt-auto pt-6 border-t border-slate-800/50 flex flex-wrap gap-4">
+							${project.githubUrl ? `
+								<a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" 
+									class="flex-1 min-w-[140px] px-6 py-3 bg-slate-800 hover:bg-slate-750 text-white rounded-xl font-medium tracking-wide transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-900/20 border border-slate-700 hover:border-slate-600 flex items-center justify-center gap-2 group/btn"
+								>
+									<svg class="w-5 h-5 text-slate-400 group-hover/btn:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+									<span>${labels.viewCode || 'View Code'}</span>
+								</a>
+							` : ''}
+							${project.demoUrl ? `
+								<a href="${project.demoUrl}" target="_blank" rel="noopener noreferrer" 
+									class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-medium tracking-wide transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-500/30 flex items-center justify-center gap-2"
+								>
+									<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+									<span>${labels.viewDemo || 'View Demo'}</span>
+								</a>
+							` : ''}
+						</div>
+					</div>
+				</div>
+			`;
+
+			const modalContainer = document.querySelector('[data-modal-container]');
+			modalContent.innerHTML = content;
+			modal.classList.remove('hidden');
+			modal.classList.add('flex');
+			
+			requestAnimationFrame(() => {
+				modalContainer?.classList.remove('opacity-0', 'scale-95');
+				modalContainer?.classList.add('opacity-100', 'scale-100');
+			});
+
+			document.body.style.overflow = 'hidden';
+
+			if (project.images && project.images.length > 1) {
+				initCarousel(project.images);
+			}
+		}
+
+		function closeModal() {
+			const modalContainer = document.querySelector('[data-modal-container]');
+			if (!modal) return;
+			
+			modalContainer?.classList.remove('opacity-100', 'scale-100');
+			modalContainer?.classList.add('opacity-0', 'scale-95');
+
+			setTimeout(() => {
+				modal.classList.add('hidden');
+				modal.classList.remove('flex');
+				document.body.style.overflow = '';
+			}, 300);
+		}
+
+		function initCarousel(images: string[]) {
+			let currentIndex = 0;
+			const img = document.querySelector('[data-carousel-image]') as HTMLImageElement;
+			const indicators = document.querySelectorAll('[data-indicator]');
+			const prevBtn = document.querySelector('[data-prev]');
+			const nextBtn = document.querySelector('[data-next]');
+
+			function updateCarousel() {
+				if (img) img.src = images[currentIndex];
+				indicators.forEach((ind, i) => {
+					if (i === currentIndex) {
+						ind.classList.remove('bg-slate-600', 'w-2.5', 'hover:bg-slate-400');
+						ind.classList.add('bg-emerald-400', 'w-8', 'shadow-[0_0_10px_rgba(52,211,153,0.5)]');
+					} else {
+						ind.classList.remove('bg-emerald-400', 'w-8', 'shadow-[0_0_10px_rgba(52,211,153,0.5)]');
+						ind.classList.add('bg-slate-600', 'w-2.5', 'hover:bg-slate-400');
+					}
+				});
+			}
+
+			prevBtn?.addEventListener('click', () => {
+				currentIndex = (currentIndex - 1 + images.length) % images.length;
+				updateCarousel();
+			});
+
+			nextBtn?.addEventListener('click', () => {
+				currentIndex = (currentIndex + 1) % images.length;
+				updateCarousel();
+			});
+
+			indicators.forEach((ind, i) => {
+				ind.addEventListener('click', () => {
+					currentIndex = i;
+					updateCarousel();
+				});
+			});
+		}
+	}
+
+	document.addEventListener("DOMContentLoaded", initProjects);
+	document.addEventListener("astro:page-load", initProjects);
+</script>
+
+<script id="projects-data" type="application/json" set:html={JSON.stringify(projects)}></script>
+<script id="tech-icons-data" type="application/json" set:html={JSON.stringify(techIcons)}></script>
+<script id="modal-labels-data" type="application/json" set:html={JSON.stringify(modalLabels)}></script>
+
+<style>
+	@keyframes fade-in-up {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.animate-on-scroll {
+		opacity: 0;
+	}
+
+	.animate-on-scroll.visible {
+		animation: fade-in-up 0.8s ease-out forwards;
+	}
+
+	.line-clamp-2 {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+</style>
