@@ -6,18 +6,17 @@
 
 Portafolio personal moderno y minimalista construido con Astro y Tailwind CSS v4, diseñado para destacar proyectos y experiencia profesional.
 
-## ✨ Características
+## Características
 
-- **🚀 Performance óptimo** con Astro (zero JS por defecto)
-- **🎨 Diseño moderno** con Tailwind CSS v4 y sistema de diseño personalizado
-- **♿ Accesible** siguiendo mejores prácticas de a11y
-- **📱 Responsive** adaptado a todos los dispositivos
-- **🌙 Dark mode** nativo con paleta profesional
-- **✍️ TypeScript** con configuración strict
-- **🎭 Animaciones fluidas** y efectos interactivos
-- **🔍 SEO optimizado** con meta tags y Open Graph
+- **Performance óptimo** con Astro (zero JS por defecto)
+- **Diseño moderno** con Tailwind CSS v4 y sistema de diseño personalizado
+- **Accesible** siguiendo mejores prácticas de a11y
+- **Responsive** adaptado a todos los dispositivos
+- **TypeScript** con configuración strict
+- **Animaciones fluidas** y efectos interactivos
+- **SEO optimizado** con meta tags y Open Graph
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: [Astro 5.16.3](https://astro.build)
 - **Estilos**: [Tailwind CSS 4.1.17](https://tailwindcss.com) 
@@ -25,35 +24,63 @@ Portafolio personal moderno y minimalista construido con Astro y Tailwind CSS v4
 - **Fuentes**: [Outfit](https://fonts.google.com/specimen/Outfit) de Google Fonts
 - **Animaciones**: Canvas API + CSS Animations
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 portafolio/
 ├── public/                 # Assets estáticos
+│   ├── cv/                # Currículums
+│   │   ├── cv-2025.pdf
+│   │   └── cv-english.pdf
+│   ├── gallery/           # Capturas de proyectos
+│   │   ├── assist/        # App Assist screenshots
+│   │   ├── bubblerush/    # BubbleRush screenshots
+│   │   ├── cuestionario/  # Cuestionario screenshots
+│   │   ├── data/          # Data Analyst screenshots
+│   │   ├── despertador/   # Despertador screenshots
+│   │   ├── imss/          # IMSS screenshots
+│   │   ├── makarenko/     # Makarenko screenshots
+│   │   ├── petravia/      # Petravia screenshots
+│   │   └── trazo/         # Trazo screenshots
+│   ├── icons/             # Iconos de tecnologías
+│   └── favicon.svg
 ├── src/
 │   ├── components/        # Componentes Astro
-│   │   ├── ui/           # Componentes reutilizables
+│   │   ├── ui/           # Componentes UI reutilizables
 │   │   │   ├── BackgroundEffects.astro
+│   │   │   ├── Badge.astro
 │   │   │   ├── Button.astro
+│   │   │   ├── Card.astro
+│   │   │   ├── Icon.astro         # Iconos SVG (calendar, building, etc.)
+│   │   │   ├── SectionTitle.astro
 │   │   │   └── SocialLink.astro
 │   │   ├── About.astro
-│   │   ├── Experience.astro
+│   │   ├── Contact.astro
+│   │   ├── Education.astro
+│   │   ├── Experience.astro       # Timeline con gallery modal
 │   │   ├── Header.astro
-│   │   └── Hero.astro
-│   ├── data/             # Datos de contenido
+│   │   ├── Hero.astro
+│   │   ├── Projects.astro
+│   │   └── Skills.astro
+│   ├── data/             # Datos de contenido TypeScript
 │   │   ├── education.ts
+│   │   ├── education.en.ts        # Versión inglés
 │   │   ├── experience.ts
+│   │   ├── experience.en.ts
 │   │   ├── navigation.ts
 │   │   ├── personal.ts
 │   │   ├── projects.ts
+│   │   ├── projects.en.ts
 │   │   ├── site.ts
-│   │   └── skills.ts
+│   │   ├── skills.ts
+│   │   ├── skills.en.ts
+│   │   └── techIcons.ts           # Mappings de iconos de tecnologías
 │   ├── layouts/          # Layouts base
 │   │   └── Layout.astro
 │   ├── pages/            # Rutas
 │   │   └── index.astro
 │   ├── styles/           # Estilos globales
-│   │   └── global.css    # Tema Tailwind + animaciones
+│   │   └── global.css    # @theme Tailwind + @keyframes + utilidades
 │   └── types/            # Definiciones TypeScript
 │       └── index.ts
 ├── astro.config.mjs      # Configuración Astro
@@ -62,7 +89,7 @@ portafolio/
 └── README.md
 ```
 
-## 🚀 Comandos
+## Comandos
 
 Todos los comandos se ejecutan desde la raíz del proyecto:
 
@@ -74,7 +101,7 @@ Todos los comandos se ejecutan desde la raíz del proyecto:
 | `npm run preview`         | Previsualiza la build local antes de desplegar      |
 | `npm run astro ...`       | Ejecuta comandos CLI de Astro                       |
 
-## 🎨 Sistema de Diseño
+## Sistema de Diseño
 
 ### Paleta de Colores
 
@@ -99,7 +126,7 @@ Animaciones personalizadas incluidas:
 - `pulse-glow`: Efecto de brillo pulsante
 - `float-slow/slower`: Flotación suave para elementos decorativos
 
-## 🔧 Configuración
+## Configuración
 
 ### Tailwind CSS v4
 
@@ -128,7 +155,7 @@ Configuración strict de TypeScript para máxima seguridad de tipos:
 }
 ```
 
-## 📝 Personalización
+## Personalización
 
 ### Modificar contenido
 
@@ -155,7 +182,7 @@ Edita las variables CSS en `src/styles/global.css` dentro del bloque `@theme`:
 2. Importa y usa en `src/pages/index.astro`
 3. Añade navegación en `src/data/navigation.ts`
 
-## 🌐 Deployment
+## Deployment
 
 ### Vercel (Recomendado)
 
@@ -177,7 +204,7 @@ Astro genera archivos estáticos, compatible con:
 - AWS S3 + CloudFront
 - Cualquier host de archivos estáticos
 
-## 🔍 SEO
+## SEO
 
 El proyecto incluye:
 - Meta tags optimizados (descripción, keywords, autor)
@@ -187,7 +214,7 @@ El proyecto incluye:
 - Sitemap automático (vía Astro)
 - Robots.txt
 
-## ♿ Accesibilidad
+## Accesibilidad
 
 - HTML semántico (`<header>`, `<section>`, `<nav>`)
 - Atributos ARIA donde necesario
@@ -195,11 +222,11 @@ El proyecto incluye:
 - Estados de focus visibles
 - Contraste de colores WCAG AA
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto es de código abierto y está disponible bajo tu licencia preferida.
 
-## 👤 Autor
+## Autor
 
 **Omar Trejo Landa**
 - Email: omartrejolanda@gmail.com
